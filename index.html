@@ -607,11 +607,11 @@
   // ----------------------
   // CONFIG
   // ----------------------
-  const STORAGE_KEY = "eventParticipants";
-  const ADMIN_AUTH_KEY = "attendanceAdminAuthed";
+const STORAGE_KEY = "eventParticipants";
+const ADMIN_AUTH_KEY = "attendanceAdminAuthed";
 
-  // Apps Script URL (given by you)
-  const ADMIN_VERIFY_URL = "https://script.google.com/macros/s/AKfycbw3oGXQ5YeSf4RKEFE9DnIPXpWzlcXqPlP2Y2awDrr9fRLItPGSM2WmAueeJ0TFFc9V/exec";
+// SIMPLE ADMIN PASSWORD (hanya untuk event ini)
+const ADMIN_PASSWORD = "rozaiminbaik";
 
   const pageIds = ["dashboardPage", "uploadPage", "checkinPage"];
 
@@ -654,46 +654,38 @@
     adminBar.style.display = show ? "flex" : "none";
   }
 
-  async function verifyAdminCode(inputCode) {
-  try {
-    const params = new URLSearchParams();
-    params.append("code", inputCode);
+ function isAdminAuthenticated() {
+  return sessionStorage.getItem(ADMIN_AUTH_KEY) === "true";
+}
 
-    const res = await fetch(ADMIN_VERIFY_URL, {
-      method: "POST",
-      body: params           // TIADA headers → simple CORS request
-    });
+function setAdminAuthenticated(val) {
+  sessionStorage.setItem(ADMIN_AUTH_KEY, val ? "true" : "false");
+}
 
-    const data = await res.json();
-    return data.status === "ok";
-  } catch (err) {
-    console.error("Verify error:", err);
-    alert("Unable to contact server. Please check your connection.");
-    return false;
+function showAdminUI(show = true) {
+  const adminBar = document.getElementById("adminBar");
+  adminBar.style.display = show ? "flex" : "none";
+}
+
+function requestAdminPassword(onSuccess) {
+  if (isAdminAuthenticated()) {
+    if (onSuccess) onSuccess();
+    return;
+  }
+
+  const pw = prompt("Enter admin code for Majlis Apresiasi PSA 2025:");
+  if (pw === null) return;
+
+  if (pw === ADMIN_PASSWORD) {
+    setAdminAuthenticated(true);
+    showAdminUI(true);
+    showToast("Admin mode enabled.");
+    if (onSuccess) onSuccess();
+  } else {
+    alert("Invalid admin code.");
   }
 }
 
-
-  function requestAdminPassword(onSuccess) {
-    if (isAdminAuthenticated()) {
-      if (onSuccess) onSuccess();
-      return;
-    }
-
-    const code = prompt("Enter admin code for Majlis Apresiasi PSA 2025:");
-    if (code === null) return;
-
-    verifyAdminCode(code).then(isOk => {
-      if (isOk) {
-        setAdminAuthenticated(true);
-        showAdminUI(true);
-        showToast("Admin mode enabled.");
-        if (onSuccess) onSuccess();
-      } else {
-        alert("Invalid admin code.");
-      }
-    });
-  }
 
   function showPage(targetId) {
     pageIds.forEach(id => {
