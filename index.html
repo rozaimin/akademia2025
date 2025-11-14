@@ -655,20 +655,24 @@
   }
 
   async function verifyAdminCode(inputCode) {
-    try {
-      const res = await fetch(ADMIN_VERIFY_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: inputCode })
-      });
-      const data = await res.json();
-      return data.status === "ok";
-    } catch (err) {
-      console.error("Verify error:", err);
-      alert("Unable to contact server. Please check your connection.");
-      return false;
-    }
+  try {
+    const params = new URLSearchParams();
+    params.append("code", inputCode);
+
+    const res = await fetch(ADMIN_VERIFY_URL, {
+      method: "POST",
+      body: params           // TIADA headers → simple CORS request
+    });
+
+    const data = await res.json();
+    return data.status === "ok";
+  } catch (err) {
+    console.error("Verify error:", err);
+    alert("Unable to contact server. Please check your connection.");
+    return false;
   }
+}
+
 
   function requestAdminPassword(onSuccess) {
     if (isAdminAuthenticated()) {
