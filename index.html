@@ -405,6 +405,59 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
     }
+    /* Tentatif Majlis */
+    .schedule-card h2 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .schedule-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .schedule-list {
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .schedule-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: radial-gradient(circle at left, rgba(250,204,21,0.10), rgba(15,23,42,0.96));
+      border: 1px solid rgba(55,65,81,0.8);
+    }
+
+    .schedule-time {
+      min-width: 90px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .schedule-text {
+      font-size: 0.8rem;
+      color: #f9fafb;
+    }
+
+    .schedule-text ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+
+    .schedule-text li {
+      margin: 2px 0;
+    }
 
     @media (max-width: 600px) {
       header { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -446,6 +499,82 @@
 
   <!-- PAGE: DASHBOARD (Landing Page) -->
   <section id="dashboardPage" class="page active">
+
+    <!-- TENTATIF MAJLIS -->
+    <div class="card schedule-card">
+      <div class="flex-between">
+        <div>
+          <h2>Tentatif Majlis</h2>
+          <p class="schedule-sub">
+            Majlis Apresiasi Anugerah Akademia PSA 2025 · Around The World · SACC Shah Alam
+          </p>
+        </div>
+        <span class="badge">Untuk Rujukan Tetamu</span>
+      </div>
+
+      <ul class="schedule-list">
+        <li class="schedule-item">
+          <div class="schedule-time">7.30 MALAM</div>
+          <div class="schedule-text">Pendaftaran Staf PSA</div>
+        </li>
+        <li class="schedule-item">
+          <div class="schedule-time">8.00 MALAM</div>
+          <div class="schedule-text">Ketibaan AMP PSA</div>
+        </li>
+        <li class="schedule-item">
+          <div class="schedule-time">8.10 MALAM</div>
+          <div class="schedule-text">
+            Gimik / Montaj Majlis Apresiasi Anugerah Akademia PSA 2025
+          </div>
+        </li>
+        <li class="schedule-item">
+          <div class="schedule-time">8.15 MALAM</div>
+          <div class="schedule-text">
+            <ul>
+              <li>Ucapan aluan pengacara majlis</li>
+              <li>Bacaan doa</li>
+              <li>Ucapan aluan Timbalan Pengarah Akademik (TPA) PSA</li>
+              <li>Penyampaian Anugerah Akademia</li>
+              <li>Jamuan makan</li>
+            </ul>
+          </div>
+        </li>
+        <li class="schedule-item">
+          <div class="schedule-time">8.45 MALAM</div>
+          <div class="schedule-text">
+            <ul>
+              <li>Persembahan Jabatan 1, 2 &amp; 3</li>
+              <li>Cabutan bertuah Siri 1, 2 &amp; 3</li>
+              <li>Penyampaian Anugerah Staf Cemerlang</li>
+              <li>Persembahan Jabatan 4 &amp; 5</li>
+              <li>Cabutan bertuah Siri 4 &amp; 5</li>
+              <li>Penyampaian anugerah mengikut kategori:</li>
+              <ul>
+                <li>Pengurusan &amp; Profesional Terbaik</li>
+                <li>Keligatan Aktif Pusat Bertauliah (Pusat Berkualiti)</li>
+                <li>Mentor &amp; Mentee Terbaik</li>
+              </ul>
+              <li>Penyampaian Anugerah King &amp; Queen: Around The World</li>
+            </ul>
+          </div>
+        </li>
+        <li class="schedule-item">
+          <div class="schedule-time">10.30 MALAM</div>
+          <div class="schedule-text">
+            <ul>
+              <li>Penyampaian cenderahati</li>
+              <li>Sesi bergambar</li>
+            </ul>
+          </div>
+        </li>
+        <li class="schedule-item">
+          <div class="schedule-time">11.00 MALAM</div>
+          <div class="schedule-text">Bersurai</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ATTENDANCE DASHBOARD -->
     <div class="card">
       <div class="flex-between">
         <div>
@@ -476,6 +605,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- PAGE: UPLOAD / KEY-IN (Admin only) -->
   <section id="uploadPage" class="page">
