@@ -81,11 +81,11 @@
       position:absolute;
       left:10%; right:10%; top:20%; bottom:10%;
       border-radius:12px;
-      background:#150b32 url("banner.jpg") center/cover;
+      background:#150b32 url("banner.jpg") center/cover no-repeat;
       box-shadow:0 0 18px rgba(0,0,0,0.7);
       transform:translateY(40%);
       opacity:0;
-      transition:transform .9s ease .15s, opacity .9s ease .15s;
+      transition:transform .9s ease .2s, opacity .9s ease .2s;
     }
 
     .card-overlay {
@@ -95,6 +95,7 @@
       align-items:center; justify-content:flex-end;
       padding:14px; text-align:center;
     }
+
     .card-title { font-size:.9rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
     .card-subtitle { font-size:.78rem; opacity:.9; margin-top:4px; }
     .card-date { font-size:.72rem; opacity:.86; margin-top:4px; }
@@ -167,7 +168,7 @@
     .spinner {
       width:46px; height:46px;
       border-radius:999px;
-      border:3px solid rgba(248,230,190,0.25);
+      border:3px solid rgba(248,230,190,0.3);
       border-top-color:#fbe7c4;
       animation:spin .8s linear infinite;
       margin-bottom:14px;
@@ -188,24 +189,23 @@
       letter-spacing:.03em;
       z-index:3;
     }
-
   </style>
 </head>
 
 <body>
-  <!-- SOUND -->
+  <!-- SOUND EFFECT -->
   <audio id="paperSound" src="paper-open.mp3" preload="auto"></audio>
 
   <!-- CONFETTI -->
   <div class="confetti" id="confetti"></div>
 
-  <!-- LOADING -->
+  <!-- LOADING OVERLAY -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="spinner"></div>
     <div class="loading-text">Opening Akademia 2025...</div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN SCENE -->
   <div class="scene">
 
     <div class="lights">
@@ -249,20 +249,17 @@
     const confettiContainer = document.getElementById("confetti");
     const loadingOverlay = document.getElementById("loadingOverlay");
     const paperSound = document.getElementById("paperSound");
-
     let opened = false;
 
     /* CONFETTI FUNCTION */
     function launchConfetti() {
       const colors = ["#ffd166", "#f4978e", "#9b5de5", "#4cc9f0", "#ff8fab"];
-      const pieces = 120;
-
-      for (let i = 0; i < pieces; i++) {
+      for (let i = 0; i < 120; i++) {
         const piece = document.createElement("span");
         piece.className = "confetti-piece";
-        piece.style.left = (Math.random() * 100) + "%";
+        piece.style.left = Math.random() * 100 + "%";
         piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDelay = (Math.random() * 1) + "s";
+        piece.style.animationDelay = Math.random() + "s";
         confettiContainer.appendChild(piece);
         setTimeout(() => piece.remove(), 2600);
       }
@@ -272,17 +269,22 @@
       if (opened) return;
       opened = true;
 
+      /* 1 — buka sampul + naikkan kad */
       envelope.classList.add("open");
 
-      try { paperSound.currentTime = 0; paperSound.play(); } catch(e){ }
+      /* bunyi */
+      try { paperSound.play(); } catch(e){}
 
-      setTimeout(launchConfetti, 300);
-      setTimeout(() => loadingOverlay.classList.add("show"), 1200);
+      /* 2 — confetti lepas 2s */
+      setTimeout(launchConfetti, 2000);
 
-      /* ⭐⭐ REDIRECT AFTER FULL 8 SECONDS ⭐⭐ */
+      /* 3 — loading overlay naik lepas 5s */
+      setTimeout(() => loadingOverlay.classList.add("show"), 5000);
+
+      /* 4 — AUTO REDIRECT lepas 10s */
       setTimeout(() => {
-        window.location.href = "https://polipsa.my.canva.site/akademia2025";
-      }, 8000);
+        window.top.location.href = "https://polipsa.my.canva.site/akademia2025";
+      }, 10000);
     });
   </script>
 </body>
