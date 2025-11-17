@@ -21,6 +21,7 @@
       justify-content: center;
       align-items: center;
       padding: 24px;
+      overflow: hidden;
     }
 
     .scene {
@@ -32,6 +33,7 @@
       align-items: center;
       gap: 24px;
       animation: sceneIn 0.9s ease-out;
+      z-index: 2;
     }
 
     @keyframes sceneIn {
@@ -76,28 +78,14 @@
       justify-content: center;
     }
 
-    .envelope-shadow {
-      position: absolute;
-      width: 80%;
-      max-width: 420px;
-      height: 40px;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.7), transparent 70%);
-      filter: blur(6px);
-      bottom: -22px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 0;
-    }
-
     .envelope {
       position: relative;
       width: 100%;
       max-width: 420px;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16/9;
       cursor: pointer;
-      transform-origin: center;
       transform-style: preserve-3d;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: transform 0.25s ease;
       z-index: 1;
     }
 
@@ -116,7 +104,6 @@
       overflow: hidden;
     }
 
-    /* Card inside the envelope */
     .card {
       position: absolute;
       left: 10%;
@@ -125,7 +112,7 @@
       bottom: 10%;
       border-radius: 12px;
       background: #150b32;
-      background-image: url("banner.jpg"); /* tukar ikut banner sendiri kalau mahu */
+      background-image: url("banner.jpg"); /* tukar ikut banner sendiri jika mahu */
       background-size: cover;
       background-position: center;
       box-shadow: 0 0 18px rgba(0,0,0,0.7);
@@ -149,23 +136,22 @@
     .card-title {
       font-size: 0.9rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
       text-transform: uppercase;
+      letter-spacing: .08em;
     }
 
     .card-subtitle {
       font-size: 0.78rem;
-      margin-top: 4px;
       opacity: 0.9;
+      margin-top: 4px;
     }
 
     .card-date {
       font-size: 0.72rem;
-      margin-top: 4px;
       opacity: 0.86;
+      margin-top: 4px;
     }
 
-    /* Flap that opens */
     .flap {
       position: absolute;
       inset: 0;
@@ -177,16 +163,6 @@
       box-shadow: 0 18px 40px rgba(0,0,0,0.7);
     }
 
-    .flap::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(145deg,
-        rgba(255,255,255,0.35),
-        rgba(255,255,255,0.07));
-      mix-blend-mode: screen;
-    }
-
     .seal {
       position: absolute;
       width: 110px;
@@ -195,32 +171,59 @@
       background: radial-gradient(circle at 30% 25%, #ffe7b8, #b67415);
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -35%);
+      transform: translate(-50%, -40%);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 3px;
+      text-align: center;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.18em;
-      text-transform: uppercase;
       color: #422108;
       box-shadow:
         0 14px 26px rgba(0,0,0,0.65),
         0 0 0 4px rgba(88,49,8,0.95),
         inset 0 0 10px rgba(255,255,255,0.5);
-      text-align: center;
+      animation: sealGlow 2.4s ease-in-out infinite;
     }
 
     .seal span:first-child {
       margin-bottom: -3px;
     }
 
-    /* OPEN STATE */
+    /* Glow / pulse pada seal */
+    @keyframes sealGlow {
+      0% {
+        box-shadow:
+          0 10px 22px rgba(0,0,0,0.6),
+          0 0 0 4px rgba(88,49,8,0.95),
+          0 0 14px rgba(255,240,200,0.5),
+          inset 0 0 8px rgba(255,255,255,0.4);
+        transform: translate(-50%, -40%) scale(1);
+      }
+      50% {
+        box-shadow:
+          0 12px 26px rgba(0,0,0,0.7),
+          0 0 0 4px rgba(88,49,8,0.95),
+          0 0 26px rgba(255,240,200,0.9),
+          inset 0 0 10px rgba(255,255,255,0.6);
+        transform: translate(-50%, -40%) scale(1.05);
+      }
+      100% {
+        box-shadow:
+          0 10px 22px rgba(0,0,0,0.6),
+          0 0 0 4px rgba(88,49,8,0.95),
+          0 0 14px rgba(255,240,200,0.5),
+          inset 0 0 8px rgba(255,255,255,0.4);
+        transform: translate(-50%, -40%) scale(1);
+      }
+    }
+
+    /* OPEN state */
     .envelope.open .flap {
       transform: rotateX(-155deg);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
 
     .envelope.open .card {
@@ -228,40 +231,103 @@
       opacity: 1;
     }
 
-    .envelope.open .seal {
-      animation: pulse 0.5s ease-out;
-    }
-
-    @keyframes pulse {
-      0%   { transform: translate(-50%, -35%) scale(1); }
-      40%  { transform: translate(-50%, -35%) scale(0.94); }
-      100% { transform: translate(-50%, -35%) scale(1); }
-    }
-
     .hint {
       text-align: center;
-      font-size: 0.98rem;
-      max-width: 420px;
-      line-height: 1.4;
-      opacity: 0.9;
-      animation: hintFade 1.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes hintFade {
-      from { opacity: 0.55; }
-      to   { opacity: 1; }
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-top: 8px;
     }
 
     @media (max-width: 480px) {
-      body {
-        padding: 16px;
-      }
+      body { padding: 16px; }
       .hint { font-size: 0.9rem; }
+    }
+
+    /* CONFETTI */
+    .confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 16px;
+      border-radius: 2px;
+      opacity: 0;
+      animation: confettiFall 2.4s linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-10vh) rotateZ(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotateZ(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* LOADING OVERLAY */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15,8,35,0.96), rgba(3,1,10,0.98));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 4;
+    }
+
+    .loading-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .spinner {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 3px solid rgba(248, 230, 190, 0.25);
+      border-top-color: #fbe7c4;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 14px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.9;
     }
   </style>
 </head>
 
 <body>
+  <!-- Bunyi kertas -->
+  <audio id="paperSound" src="paper-open.mp3" preload="auto"></audio>
+
+  <!-- Confetti container -->
+  <div class="confetti" id="confetti"></div>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Opening Akademia 2025...</div>
+  </div>
+
   <div class="scene">
     <div class="lights">
       <div class="light-dot"></div>
@@ -270,8 +336,6 @@
     </div>
 
     <div class="envelope-wrapper">
-      <div class="envelope-shadow"></div>
-
       <div class="envelope" id="envelope">
         <div class="envelope-base"></div>
 
@@ -292,18 +356,66 @@
       </div>
     </div>
 
-    <p class="hint">
-      Klik sampul emas untuk membuka jemputan Akademia 2025
-    </p>
+    <p class="hint">Klik sampul emas untuk membuka jemputan</p>
   </div>
 
   <script>
     const envelope = document.getElementById("envelope");
+    const confettiContainer = document.getElementById("confetti");
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    const paperSound = document.getElementById("paperSound");
     let opened = false;
 
+    function launchConfetti() {
+      const colors = ["#ffd166", "#f4978e", "#9b5de5", "#4cc9f0", "#ff8fab"];
+      const pieces = 120;
+
+      for (let i = 0; i < pieces; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti-piece";
+        const left = Math.random() * 100;
+        const delay = Math.random() * 0.9;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const rotate = Math.random() * 360;
+
+        piece.style.left = left + "%";
+        piece.style.backgroundColor = color;
+        piece.style.animationDelay = delay + "s";
+        piece.style.transform = "rotate(" + rotate + "deg)";
+        confettiContainer.appendChild(piece);
+
+        // buang selepas animasi
+        setTimeout(() => piece.remove(), 2600);
+      }
+    }
+
     envelope.addEventListener("click", () => {
-      opened = !opened;
-      envelope.classList.toggle("open", opened);
+      if (opened) return;
+      opened = true;
+
+      // buka sampul
+      envelope.classList.add("open");
+
+      // bunyi kertas
+      try {
+        paperSound.currentTime = 0;
+        paperSound.play();
+      } catch (e) {
+        // kalau browser block, ignore je
+      }
+
+      // confetti sedikit lewat (bagi flap sempat bergerak)
+      setTimeout(launchConfetti, 300);
+
+      // tunjuk loading spinner sebelum redirect
+      setTimeout(() => {
+        loadingOverlay.classList.add("show");
+      }, 600);
+
+      // redirect selepas 2s dari klik
+      setTimeout(() => {
+        window.location.href = "https://polipsa.my.canva.site/akademia2025";
+      }, 2000);
     });
   </script>
 </body>
