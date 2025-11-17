@@ -2,1311 +2,268 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MAJLIS APRESIASI PSA 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- SheetJS for Excel reading/writing -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <!-- jsPDF for PDF export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <title>Majlis Apresiasi Akademia PSA 2025 – Invitation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    :root {
-      --bg: #050509;
-      --bg-soft: #0b0b10;
-      --card: #090913;
-      --accent: #facc15; /* gold */
-      --accent-soft: rgba(250, 204, 21, 0.16);
-      --danger: #f97373;
-      --success: #22c55e;
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --border: #1f2937;
-      --radius: 14px;
-    }
-
     * {
       box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top, #1f2937 0, #02010b 45%) fixed,
-        #02010b;
-      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Banner */
-    .banner-wrap {
-      width: 100%;
-      background: #000;
-    }
-
-    .banner-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    header {
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(234, 179, 8, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: radial-gradient(circle at top left, rgba(250,204,21,0.1), rgba(0,0,0,0.92));
-      backdrop-filter: blur(14px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-circle {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 1px solid rgba(250,204,21,0.8);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent);
-      background: radial-gradient(circle at 30% 0, rgba(250,204,21,0.35), #02010b);
-      box-shadow: 0 0 14px rgba(250,204,21,0.45);
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    header p {
-      margin: 0;
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    main {
-      flex: 1;
-      padding: 16px;
-      max-width: 1100px;
-      margin: 0 auto 24px;
-      width: 100%;
-    }
-
-    .page {
-      display: none;
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .card {
-      background: radial-gradient(circle at top, rgba(250,204,21,0.08), rgba(0,0,0,0.95));
-      border-radius: var(--radius);
-      border: 1px solid rgba(148,163,184,0.35);
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 1rem;
-      margin-bottom: 6px;
-    }
-
-    .card p.sub {
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 0.84rem;
-    }
-
-    label {
-      display: block;
-      font-size: 0.8rem;
-      margin-bottom: 4px;
-      color: var(--muted);
-    }
-
-    input[type="text"],
-    input[type="number"],
-    select {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg-soft);
-      color: var(--text);
-      font-size: 0.85rem;
-    }
-
-    input[type="file"] {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(250,204,21,0.5);
-    }
-
-    button {
-      border-radius: 999px;
-      border: none;
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, #facc15, #fbbf24);
-      color: #111827;
-      font-weight: 500;
-      box-shadow: 0 8px 24px rgba(250,204,21,0.45);
-      transition: all 0.15s ease;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 30px rgba(250,204,21,0.6);
-    }
-
-    button.secondary {
-      background: rgba(15,23,42,0.92);
-      color: var(--muted);
-      border: 1px solid rgba(148,163,184,0.6);
-      box-shadow: none;
-    }
-    button.secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .btn-small {
-      padding: 4px 10px;
-      font-size: 0.75rem;
-      box-shadow: none;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 8px;
-      font-size: 0.78rem;
-      border-radius: 10px;
+      background: radial-gradient(circle at top, #3b2b69, #05020a 55%, #000000);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: #f9e4b7;
       overflow: hidden;
     }
 
-    th, td {
-      padding: 6px 8px;
-      border-bottom: 1px solid rgba(30,64,175,0.4);
-      text-align: left;
-    }
-
-    th {
-      background: radial-gradient(circle at top, rgba(250,204,21,0.12), #020617);
-      font-weight: 500;
-      color: var(--muted);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    tr:nth-child(even) td {
-      background: rgba(15,23,42,0.9);
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      gap: 4px;
-      background: rgba(15,23,42,0.9);
-    }
-
-    .pill.success {
-      border-color: var(--success);
-      color: var(--success);
-    }
-
-    .pill.danger {
-      border-color: var(--danger);
-      color: var(--danger);
-    }
-
-    .flex {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .flex-between {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .mt-8 { margin-top: 8px; }
-    .mt-12 { margin-top: 12px; }
-
-    .badge {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border: 1px solid rgba(250,204,21,0.8);
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .stat-card {
-      border-radius: 10px;
-      border: 1px solid rgba(55,65,81,0.8);
-      padding: 10px;
-      background: radial-gradient(circle at top, rgba(250,204,21,0.08), rgba(15,23,42,0.96));
-    }
-
-    .stat-card h3 {
-      margin: 0 0 4px;
-      font-size: 0.85rem;
-    }
-
-    .stat-card .value {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .progress {
-      width: 100%;
-      height: 6px;
-      border-radius: 999px;
-      background: #020617;
-      margin-top: 6px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #22c55e, #facc15);
-      transition: width 0.25s ease;
-    }
-
-    .tagline {
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--bg-soft);
-      color: var(--text);
-      font-size: 0.85rem;
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(250,204,21,0.5);
-    }
-
-    .toast {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      padding: 10px 14px;
-      background: rgba(15,23,42,0.98);
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      font-size: 0.8rem;
-      display: none;
-      align-items: center;
-      gap: 8px;
-      z-index: 20;
-      box-shadow: 0 16px 35px rgba(0,0,0,0.7);
-    }
-
-    .toast.show { display: inline-flex; }
-
-    .big-table-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+    .lights {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      right: 0;
       text-align: center;
-      margin-top: 8px;
-      padding: 10px 0;
-      border-radius: 12px;
-      background: radial-gradient(circle at top, rgba(250,204,21,0.18), rgba(15,23,42,0.98));
-      border: 1px solid rgba(250,204,21,0.65);
-      text-shadow: 0 0 10px rgba(250,204,21,0.55);
+      pointer-events: none;
+      font-size: 14px;
+      letter-spacing: 0.7em;
     }
 
-    .admin-bar {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      margin: 14px 0 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle at left, rgba(250,204,21,0.2), rgba(15,23,42,0.98));
-      border: 1px solid rgba(250,204,21,0.4);
-      font-size: 0.78rem;
+    .lights span {
+      text-shadow: 0 0 8px rgba(255, 230, 170, 0.9);
     }
 
-    .admin-bar span {
-      color: var(--accent);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-    /* Tentatif Majlis */
-    .schedule-card h2 {
-      font-size: 1rem;
-      margin-bottom: 4px;
+    .hint {
+      position: absolute;
+      bottom: 40px;
+      text-align: center;
+      width: 100%;
+      font-size: 0.95rem;
+      opacity: 0.8;
     }
 
-    .schedule-sub {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin: 0;
+    .envelope-wrapper {
+      perspective: 1600px;
+      cursor: pointer;
     }
 
-    .schedule-list {
-      list-style: none;
-      margin: 10px 0 0;
-      padding: 0;
+    .envelope {
+      width: 340px;
+      height: 220px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.9s ease;
+    }
+
+    .envelope:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    /* Envelope base */
+    .envelope-base {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #5f3a16, #b58b39);
+      border-radius: 14px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 2px rgba(255, 215, 150, 0.6);
+      overflow: hidden;
+    }
+
+    /* The “card” inside the envelope (your event artwork) */
+    .card {
+      position: absolute;
+      inset: 14px;
+      border-radius: 10px;
+      background: #120b2a;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+      transform: translateY(35%);
+      transition: transform 0.9s ease 0.2s;
+    }
+
+    /* OPTIONAL: put your banner as background image */
+    /* Replace 'banner.jpg' with your real image path if you want */
+    .card {
+      background-image: url("banner.jpg"); /* or remove this line if not using */
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.1)
+      );
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 16px;
+      text-align: center;
     }
 
-    .schedule-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 6px 8px;
-      border-radius: 10px;
-      background: radial-gradient(circle at left, rgba(250,204,21,0.10), rgba(15,23,42,0.96));
-      border: 1px solid rgba(55,65,81,0.8);
-    }
-
-    .schedule-time {
-      min-width: 90px;
-      font-size: 0.8rem;
+    .card-title {
       font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.06em;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
     }
 
-    .schedule-text {
+    .card-subtitle {
       font-size: 0.8rem;
-      color: #f9fafb;
+      margin-top: 4px;
+      opacity: 0.9;
     }
 
-    .schedule-text ul {
-      margin: 0;
-      padding-left: 16px;
+    .card-date {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      opacity: 0.85;
     }
 
-    .schedule-text li {
-      margin: 2px 0;
+    /* Flap */
+    .flap {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f9e0b5, #b47c2b);
+      transform-origin: top;
+      transform-style: preserve-3d;
+      transition: transform 0.9s ease;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
     }
 
-    @media (max-width: 600px) {
-      header { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .header-actions { align-self: flex-start; }
-      .admin-bar { flex-wrap: wrap; }
+    .flap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.32),
+        rgba(255, 255, 255, 0.05)
+      );
+      mix-blend-mode: screen;
+    }
+
+    .seal {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #ffe9c0, #b67518);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #3c2007;
+      box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.7),
+        0 0 0 4px rgba(84, 36, 4, 0.8);
+      text-align: center;
+    }
+
+    /* Open state */
+    .envelope.open .flap {
+      transform: rotateX(-155deg);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .envelope.open .card {
+      transform: translateY(-8%);
+    }
+
+    .envelope.open:hover {
+      transform: translateY(0) scale(1.02);
+    }
+
+    @media (max-width: 480px) {
+      .envelope {
+        width: 300px;
+        height: 200px;
+      }
+
+      .seal {
+        width: 64px;
+        height: 64px;
+        font-size: 0.55rem;
+      }
+
+      .lights {
+        font-size: 11px;
+      }
+
+      .hint {
+        font-size: 0.85rem;
+        padding: 0 10px;
+      }
     }
   </style>
 </head>
 <body>
-
-<!-- BANNER ATAS -->
-<div class="banner-wrap">
-  <!-- Tukar src kepada nama fail banner sebenar jika perlu -->
-  <img src="banner.jpg" alt="Majlis Apresiasi PSA 2025 Banner">
-</div>
-
-<header>
-  <div class="brand">
-    <div class="logo-circle">PSA</div>
-    <div>
-      <h1>MAJLIS APRESIASI PSA 2025</h1>
-      <p>Live attendance dashboard · Around The World · SACC Shah Alam</p>
-    </div>
-  </div>
-  <div class="header-actions">
-    <button class="secondary btn-small" id="btnAdminOpen">Admin</button>
-  </div>
-</header>
-
-<main>
-  <!-- ADMIN BAR (only visible after login) -->
-  <div id="adminBar" class="admin-bar">
-    <span>ADMIN MODE</span>
-    <button class="secondary btn-small admin-tab-btn" data-target="uploadPage">Upload List</button>
-    <button class="secondary btn-small admin-tab-btn" data-target="checkinPage">Check-in</button>
-    <button class="secondary btn-small admin-tab-btn" data-target="dashboardPage">Dashboard</button>
-    <button class="secondary btn-small" id="btnAdminLogout">Logout</button>
+  <div class="lights">
+    <span>● ● ● ● ● ● ● ● ● ● ● ● ● ●</span>
   </div>
 
-  <!-- PAGE: DASHBOARD (Landing Page) -->
-  <section id="dashboardPage" class="page active">
-
-    <!-- TENTATIF MAJLIS -->
-    <div class="card schedule-card">
-      <div class="flex-between">
-        <div>
-          <h2>Tentatif Majlis</h2>
-          <p class="schedule-sub">
-            Majlis Apresiasi Anugerah Akademia PSA 2025 · Around The World · SACC Shah Alam
-          </p>
-        </div>
-        <span class="badge">Untuk Rujukan Tetamu</span>
-      </div>
-
-      <ul class="schedule-list">
-        <li class="schedule-item">
-          <div class="schedule-time">7.30 MALAM</div>
-          <div class="schedule-text">Pendaftaran Staf PSA</div>
-        </li>
-        <li class="schedule-item">
-          <div class="schedule-time">8.00 MALAM</div>
-          <div class="schedule-text">Ketibaan AMP PSA</div>
-        </li>
-        <li class="schedule-item">
-          <div class="schedule-time">8.10 MALAM</div>
-          <div class="schedule-text">
-            Gimik / Montaj Majlis Apresiasi Anugerah Akademia PSA 2025
+  <div class="envelope-wrapper" id="invitation">
+    <div class="envelope">
+      <div class="envelope-base">
+        <div class="card">
+          <div class="card-overlay">
+            <div class="card-title">
+              MAJLIS APRESIASI ANUGERAH AKADEMIA PSA 2025
+            </div>
+            <div class="card-subtitle">Around the World – SACC Shah Alam</div>
+            <div class="card-date">21 November 2025 · Jumaat</div>
           </div>
-        </li>
-        <li class="schedule-item">
-          <div class="schedule-time">8.15 MALAM</div>
-          <div class="schedule-text">
-            <ul>
-              <li>Ucapan aluan pengacara majlis</li>
-              <li>Bacaan doa</li>
-              <li>Ucapan aluan Timbalan Pengarah Akademik (TPA) PSA</li>
-              <li>Penyampaian Anugerah Akademia</li>
-              <li>Jamuan makan</li>
-            </ul>
-          </div>
-        </li>
-        <li class="schedule-item">
-          <div class="schedule-time">8.45 MALAM</div>
-          <div class="schedule-text">
-            <ul>
-              <li>Persembahan Jabatan 1, 2 &amp; 3</li>
-              <li>Cabutan bertuah Siri 1, 2 &amp; 3</li>
-              <li>Penyampaian Anugerah Staf Cemerlang</li>
-              <li>Persembahan Jabatan 4 &amp; 5</li>
-              <li>Cabutan bertuah Siri 4 &amp; 5</li>
-              <li>Penyampaian anugerah mengikut kategori:</li>
-              <ul>
-                <li>Pengurusan &amp; Profesional Terbaik</li>
-                <li>Keligatan Aktif Pusat Bertauliah (Pusat Berkualiti)</li>
-                <li>Mentor &amp; Mentee Terbaik</li>
-              </ul>
-              <li>Penyampaian Anugerah King &amp; Queen: Around The World</li>
-            </ul>
-          </div>
-        </li>
-        <li class="schedule-item">
-          <div class="schedule-time">10.30 MALAM</div>
-          <div class="schedule-text">
-            <ul>
-              <li>Penyampaian cenderahati</li>
-              <li>Sesi bergambar</li>
-            </ul>
-          </div>
-        </li>
-        <li class="schedule-item">
-          <div class="schedule-time">11.00 MALAM</div>
-          <div class="schedule-text">Bersurai</div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- ATTENDANCE DASHBOARD -->
-    <div class="card">
-      <div class="flex-between">
-        <div>
-          <h2>Attendance Dashboard</h2>
-          <p class="sub">
-            Live overview of total guests and department-wise attendance for Majlis Apresiasi PSA 2025.
-          </p>
-        </div>
-        <div class="flex">
-          <button class="secondary btn-small" id="btnExportExcel">Export Excel</button>
-          <button class="secondary btn-small" id="btnExportPDF">Export PDF</button>
-          <button class="secondary btn-small" id="btnRefreshDashboard">Refresh</button>
         </div>
       </div>
-
-      <div id="overallStats" class="stat-grid mt-8">
-        <!-- Overall stats filled by JS -->
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="flex-between">
-        <h2>Attendance by Department</h2>
-        <div class="tagline">Auto-calculated based on uploaded guest list and check-in activity.</div>
-      </div>
-      <div id="deptStats" class="mt-8">
-        <!-- Department cards filled by JS -->
-      </div>
-    </div>
-  </section>
-
-
-  <!-- PAGE: UPLOAD / KEY-IN (Admin only) -->
-  <section id="uploadPage" class="page">
-    <div class="card">
-      <div class="flex-between">
-        <div>
-          <h2>Upload Guest List</h2>
-          <p class="sub">
-            Upload Excel (<code>.xlsx</code> / <code>.xls</code>) or CSV with columns:
-            <strong>Name</strong>, <strong>Department</strong>, <strong>TableNo</strong>.
-          </p>
-        </div>
-        <span class="badge">Admin only</span>
-      </div>
-      <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" />
-      <div class="mt-8 flex-between">
-        <div class="tagline">
-          All data is stored in <strong>localStorage</strong> of this browser.
-        </div>
-        <div class="flex">
-          <button id="btnClearAll" class="secondary btn-small">Clear All Data</button>
-        </div>
-      </div>
-      <div id="uploadInfo" class="mt-8 tagline"></div>
-    </div>
-
-    <div class="card">
-      <div class="flex-between">
-        <div>
-          <h2>Manual Add Guest</h2>
-          <p class="sub">Use this for walk-in guests or small corrections.</p>
-        </div>
-        <span class="badge">Admin only</span>
-      </div>
-      <div class="flex">
-        <div style="flex: 1 1 200px;">
-          <label for="manualName">Name</label>
-          <input type="text" id="manualName" placeholder="Guest name" />
-        </div>
-        <div style="flex: 1 1 150px;">
-          <label for="manualDept">Department</label>
-          <input type="text" id="manualDept" placeholder="e.g. JKA, JKE" />
-        </div>
-        <div style="flex: 1 1 100px;">
-          <label for="manualTable">Table No</label>
-          <input type="number" id="manualTable" min="1" placeholder="e.g. 12" />
-        </div>
-      </div>
-      <div class="mt-8">
-        <button id="btnAddManual">Add Guest</button>
-      </div>
-
-      <div class="mt-12">
-        <h3 style="font-size:0.9rem;margin:0 0 4px;">Current Guest List</h3>
-        <p class="tagline" id="participantCountText">No guests loaded yet.</p>
-        <div style="max-height: 220px; overflow:auto; border-radius:10px; border:1px solid var(--border); margin-top:6px;">
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Dept</th>
-                <th>Table</th>
-                <th>Attended</th>
-              </tr>
-            </thead>
-            <tbody id="participantTableBody">
-              <!-- Filled by JS -->
-            </tbody>
-          </table>
+      <div class="flap">
+        <div class="seal">
+          OPEN<br />
+          INVITE
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- PAGE: CHECK-IN (Admin only) -->
-  <section id="checkinPage" class="page">
-    <div class="card">
-      <div class="flex-between">
-        <div>
-          <h2>Check-in Guests</h2>
-          <p class="sub">
-            Search by name or department. Click <strong>Mark Present</strong> and show the table number to the guest.
-          </p>
-        </div>
-        <span class="badge">Admin only</span>
-      </div>
-      <input type="text" id="searchInput" class="search-input" placeholder="Type name / department / ID..." />
-      <div class="mt-8" id="searchResultInfo" class="tagline"></div>
-    </div>
+  <div class="hint">Click the golden envelope to open your invitation</div>
 
-    <div class="card">
-      <div class="flex-between">
-        <h3 style="margin:0 0 6px;font-size:0.9rem;">Search Results</h3>
-        <button class="secondary btn-small" id="btnShowAll">Show All</button>
-      </div>
-      <div style="max-height: 260px; overflow:auto; border-radius:10px; border:1px solid var(--border); margin-top:6px;">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Dept</th>
-              <th>Table</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="searchTableBody">
-            <!-- Filled by JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <script>
+    const targetUrl = "https://polipsa.my.canva.site/akademia2025";
+    const invitation = document.getElementById("invitation");
+    const envelope = invitation.querySelector(".envelope");
 
-    <div class="card">
-      <h3 style="margin:0 0 4px;font-size:0.9rem;">Focused Guest</h3>
-      <p class="tagline">When you mark a guest present, their table number will appear here in large text.</p>
-      <div id="focusedInfo" class="tagline">No guest selected yet.</div>
-      <div id="focusedTableNo" class="big-table-number" style="display:none;">TABLE 0</div>
-    </div>
-  </section>
-</main>
+    let opened = false;
 
-<div class="toast" id="toast">
-  <span id="toastText">Saved.</span>
-</div>
+    invitation.addEventListener("click", () => {
+      if (opened) return;
+      opened = true;
 
-<script>
-  // ----------------------
-  // CONFIG
-  // ----------------------
-const STORAGE_KEY = "eventParticipants";
-const ADMIN_AUTH_KEY = "attendanceAdminAuthed";
+      envelope.classList.add("open");
 
-// SIMPLE ADMIN PASSWORD (hanya untuk event ini)
-const ADMIN_PASSWORD = "rozaiminbaik";
-
-  const pageIds = ["dashboardPage", "uploadPage", "checkinPage"];
-
-  // ----------------------
-  // DATA HANDLING
-  // ----------------------
-  function loadParticipants() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    try {
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (e) {
-      console.error("Failed to parse participants", e);
-      return [];
-    }
-  }
-
-  function saveParticipants(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
-
-  function generateId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-  }
-
-  // ----------------------
-  // ADMIN AUTH (via Apps Script)
-  // ----------------------
-  function isAdminAuthenticated() {
-    return sessionStorage.getItem(ADMIN_AUTH_KEY) === "true";
-  }
-
-  function setAdminAuthenticated(val) {
-    sessionStorage.setItem(ADMIN_AUTH_KEY, val ? "true" : "false");
-  }
-
-  function showAdminUI(show = true) {
-    const adminBar = document.getElementById("adminBar");
-    adminBar.style.display = show ? "flex" : "none";
-  }
-
- function isAdminAuthenticated() {
-  return sessionStorage.getItem(ADMIN_AUTH_KEY) === "true";
-}
-
-function setAdminAuthenticated(val) {
-  sessionStorage.setItem(ADMIN_AUTH_KEY, val ? "true" : "false");
-}
-
-function showAdminUI(show = true) {
-  const adminBar = document.getElementById("adminBar");
-  adminBar.style.display = show ? "flex" : "none";
-}
-
-function requestAdminPassword(onSuccess) {
-  if (isAdminAuthenticated()) {
-    if (onSuccess) onSuccess();
-    return;
-  }
-
-  const pw = prompt("Enter admin code for Majlis Apresiasi PSA 2025:");
-  if (pw === null) return;
-
-  if (pw === ADMIN_PASSWORD) {
-    setAdminAuthenticated(true);
-    showAdminUI(true);
-    showToast("Admin mode enabled.");
-    if (onSuccess) onSuccess();
-  } else {
-    alert("Invalid admin code.");
-  }
-}
-
-
-  function showPage(targetId) {
-    pageIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.classList.toggle("active", id === targetId);
+      // wait for animation, then go to event webpage
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 1400); // 1.4s
     });
-    if (targetId === "dashboardPage") {
-      renderDashboard();
-    } else if (targetId === "uploadPage") {
-      renderParticipantTable();
-    } else if (targetId === "checkinPage") {
-      renderSearchResults();
-    }
-  }
-
-  // Header admin button
-  const btnAdminOpen = document.getElementById("btnAdminOpen");
-  btnAdminOpen.addEventListener("click", () => {
-    requestAdminPassword(() => {
-      showAdminUI(true);
-      showPage("uploadPage");
-    });
-  });
-
-  // Admin bar buttons
-  document.querySelectorAll(".admin-tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-target");
-      showPage(target);
-    });
-  });
-
-  const btnAdminLogout = document.getElementById("btnAdminLogout");
-  btnAdminLogout.addEventListener("click", () => {
-    setAdminAuthenticated(false);
-    showAdminUI(false);
-    showPage("dashboardPage");
-    showToast("Admin logged out.");
-  });
-
-  // ----------------------
-  // TOAST
-  // ----------------------
-  const toastEl = document.getElementById("toast");
-  const toastTextEl = document.getElementById("toastText");
-  let toastTimeout;
-
-  function showToast(msg) {
-    toastTextEl.textContent = msg;
-    toastEl.classList.add("show");
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-      toastEl.classList.remove("show");
-    }, 2600);
-  }
-
-  // ----------------------
-  // PAGE: UPLOAD / MANUAL ADD
-  // ----------------------
-  const fileInput = document.getElementById("fileInput");
-  const uploadInfo = document.getElementById("uploadInfo");
-  const participantTableBody = document.getElementById("participantTableBody");
-  const participantCountText = document.getElementById("participantCountText");
-  const btnClearAll = document.getElementById("btnClearAll");
-
-  if (fileInput) {
-    fileInput.addEventListener("change", handleFileUpload);
-  }
-
-  if (btnClearAll) {
-    btnClearAll.addEventListener("click", () => {
-      if (confirm("Clear ALL guest data?")) {
-        localStorage.removeItem(STORAGE_KEY);
-        renderParticipantTable();
-        renderDashboard();
-        renderSearchResults();
-        showToast("All data cleared.");
-      }
-    });
-  }
-
-  function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const fileName = file.name.toLowerCase();
-    if (fileName.endsWith(".csv")) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const text = e.target.result;
-        const parsed = parseCSV(text);
-        mergeUploadedParticipants(parsed);
-      };
-      reader.readAsText(file);
-    } else {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
-        const wsName = workbook.SheetNames[0];
-        const ws = workbook.Sheets[wsName];
-        const json = XLSX.utils.sheet_to_json(ws, { defval: "" });
-        const parsed = json.map(row => ({
-          name: String(row.Name || row.NAME || row.name || "").trim(),
-          department: String(row.Department || row.Dept || row.department || "").trim(),
-          tableNo: row.TableNo || row.Table || row.Table_No || row["Table No"] || ""
-        }));
-        mergeUploadedParticipants(parsed);
-      };
-      reader.readAsArrayBuffer(file);
-    }
-  }
-
-  function parseCSV(text) {
-    const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
-    if (lines.length === 0) return [];
-    const headers = lines[0].split(",").map(h => h.trim().toLowerCase());
-    const nameIdx = headers.findIndex(h => h === "name");
-    const deptIdx = headers.findIndex(h => h === "department" || h === "dept");
-    const tableIdx = headers.findIndex(h => h === "tableno" || h === "table" || h === "table_no");
-
-    const result = [];
-    for (let i = 1; i < lines.length; i++) {
-      const cols = lines[i].split(",");
-      const name = (cols[nameIdx] || "").trim();
-      const dept = (cols[deptIdx] || "").trim();
-      const tableNo = (cols[tableIdx] || "").trim();
-      if (!name) continue;
-      result.push({ name, department: dept, tableNo });
-    }
-    return result;
-  }
-
-  function mergeUploadedParticipants(uploadedList) {
-    let current = loadParticipants();
-    const beforeCount = current.length;
-
-    uploadedList.forEach(row => {
-      if (!row.name) return;
-      current.push({
-        id: generateId(),
-        name: row.name,
-        department: row.department || "N/A",
-        tableNo: row.tableNo || "",
-        attended: false,
-        checkInTime: null,
-        isWalkIn: false
-      });
-    });
-
-    saveParticipants(current);
-    const addedCount = current.length - beforeCount;
-    if (uploadInfo) {
-      uploadInfo.textContent = `Uploaded ${uploadedList.length} rows. Added ${addedCount} new guests.`;
-    }
-    renderParticipantTable();
-    renderDashboard();
-    renderSearchResults();
-    showToast(`Uploaded ${addedCount} guests.`);
-  }
-
-  // Manual add
-  const manualName = document.getElementById("manualName");
-  const manualDept = document.getElementById("manualDept");
-  const manualTable = document.getElementById("manualTable");
-  const btnAddManual = document.getElementById("btnAddManual");
-
-  if (btnAddManual) {
-    btnAddManual.addEventListener("click", () => {
-      const name = manualName.value.trim();
-      const dept = manualDept.value.trim() || "N/A";
-      const tableNo = manualTable.value.trim();
-
-      if (!name) {
-        alert("Please enter a name.");
-        return;
-      }
-
-      let participants = loadParticipants();
-      participants.push({
-        id: generateId(),
-        name,
-        department: dept,
-        tableNo,
-        attended: false,
-        checkInTime: null,
-        isWalkIn: true
-      });
-      saveParticipants(participants);
-      manualName.value = "";
-      manualDept.value = "";
-      manualTable.value = "";
-      renderParticipantTable();
-      renderDashboard();
-      renderSearchResults();
-      showToast("Guest added.");
-    });
-  }
-
-  function renderParticipantTable() {
-    if (!participantTableBody || !participantCountText) return;
-    const participants = loadParticipants();
-    participantTableBody.innerHTML = "";
-    if (participants.length === 0) {
-      participantCountText.textContent = "No guests loaded yet.";
-      return;
-    }
-
-    participantCountText.textContent = `${participants.length} guests loaded.`;
-    participants.slice(0, 200).forEach((p, idx) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${idx + 1}</td>
-        <td>${escapeHtml(p.name)}</td>
-        <td>${escapeHtml(p.department)}</td>
-        <td>${escapeHtml(String(p.tableNo || ""))}</td>
-        <td>${p.attended ? '<span class="pill success">Present</span>' : '<span class="pill">Not yet</span>'}</td>
-      `;
-      participantTableBody.appendChild(tr);
-    });
-  }
-
-  // ----------------------
-  // PAGE: DASHBOARD
-  // ----------------------
-  const overallStatsEl = document.getElementById("overallStats");
-  const deptStatsEl = document.getElementById("deptStats");
-  const btnRefreshDashboard = document.getElementById("btnRefreshDashboard");
-  const btnExportExcel = document.getElementById("btnExportExcel");
-  const btnExportPDF = document.getElementById("btnExportPDF");
-
-  if (btnRefreshDashboard) btnRefreshDashboard.addEventListener("click", renderDashboard);
-  if (btnExportExcel) btnExportExcel.addEventListener("click", exportExcelReport);
-  if (btnExportPDF) btnExportPDF.addEventListener("click", exportPDFReport);
-
-  function renderDashboard() {
-    if (!overallStatsEl || !deptStatsEl) return;
-    const participants = loadParticipants();
-    overallStatsEl.innerHTML = "";
-    deptStatsEl.innerHTML = "";
-
-    const total = participants.length;
-    const attended = participants.filter(p => p.attended).length;
-    const percent = total === 0 ? 0 : (attended / total * 100);
-
-    const cardsHtml = `
-      <div class="stat-card">
-        <h3>Total Registered Guests</h3>
-        <div class="value">${total}</div>
-        <div class="tagline">All names in the guest list</div>
-      </div>
-      <div class="stat-card">
-        <h3>Guests Present</h3>
-        <div class="value">${attended}</div>
-        <div class="tagline">Checked in at the registration counter</div>
-      </div>
-      <div class="stat-card">
-        <h3>Overall Attendance</h3>
-        <div class="value">${percent.toFixed(1)}%</div>
-        <div class="progress">
-          <div class="progress-bar" style="width:${percent.toFixed(1)}%;"></div>
-        </div>
-        <div class="tagline">Live percentage for Majlis Apresiasi PSA 2025</div>
-      </div>
-    `;
-    overallStatsEl.innerHTML = cardsHtml;
-
-    if (total === 0) {
-      deptStatsEl.innerHTML = `<p class="tagline">No data yet. Please upload the guest list in Admin mode.</p>`;
-      return;
-    }
-
-    const deptMap = {};
-    participants.forEach(p => {
-      const dept = p.department || "N/A";
-      if (!deptMap[dept]) {
-        deptMap[dept] = { total: 0, attended: 0 };
-      }
-      deptMap[dept].total++;
-      if (p.attended) deptMap[dept].attended++;
-    });
-
-    const deptEntries = Object.entries(deptMap).sort((a,b) => a[0].localeCompare(b[0]));
-
-    deptEntries.forEach(([dept, data]) => {
-      const pct = data.total === 0 ? 0 : (data.attended / data.total * 100);
-      const warning = pct < 70 ? "danger" : "success";
-      const deptCard = document.createElement("div");
-      deptCard.className = "stat-card";
-      deptCard.innerHTML = `
-        <div class="flex-between">
-          <h3>${escapeHtml(dept)}</h3>
-          <span class="pill ${warning}">
-            ${pct.toFixed(1)}%
-          </span>
-        </div>
-        <div style="font-size:0.8rem;margin-top:4px;">
-          ${data.attended} / ${data.total} guests present
-        </div>
-        <div class="progress">
-          <div class="progress-bar" style="width:${pct.toFixed(1)}%;"></div>
-        </div>
-      `;
-      deptStatsEl.appendChild(deptCard);
-    });
-  }
-
-  // EXPORT EXCEL
-  function exportExcelReport() {
-    const participants = loadParticipants();
-    if (participants.length === 0) {
-      alert("No data to export.");
-      return;
-    }
-    const rows = participants.map(p => ({
-      Name: p.name,
-      Department: p.department,
-      TableNo: p.tableNo,
-      Attended: p.attended ? "Yes" : "No",
-      CheckInTime: p.checkInTime || "",
-      WalkIn: p.isWalkIn ? "Yes" : "No"
-    }));
-    const ws = XLSX.utils.json_to_sheet(rows);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Attendance");
-    XLSX.writeFile(wb, "attendance_report.xlsx");
-  }
-
-  // EXPORT PDF
-  function exportPDFReport() {
-    const participants = loadParticipants();
-    if (participants.length === 0) {
-      alert("No data to export.");
-      return;
-    }
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit: "pt", format: "a4" });
-
-    const title = "Majlis Apresiasi PSA 2025 - Attendance Report";
-    let y = 40;
-    doc.setFontSize(14);
-    doc.text(title, 40, y);
-    y += 14;
-    doc.setFontSize(10);
-    const nowStr = new Date().toLocaleString();
-    doc.text("Generated at: " + nowStr, 40, y);
-    y += 20;
-
-    doc.setFontSize(9);
-    const header = "Name | Dept | Table | Attended | Time";
-    doc.text(header, 40, y);
-    y += 10;
-    doc.text("--------------------------------------------------------------", 40, y);
-    y += 12;
-
-    participants.forEach(p => {
-      const line = [
-        (p.name || "").slice(0, 18),
-        (p.department || "").slice(0, 8),
-        String(p.tableNo || "-"),
-        p.attended ? "Yes" : "No",
-        p.checkInTime ? p.checkInTime.slice(0, 16) : "-"
-      ].join(" | ");
-      if (y > 770) {
-        doc.addPage();
-        y = 40;
-      }
-      doc.text(line, 40, y);
-      y += 12;
-    });
-
-    doc.save("attendance_report.pdf");
-  }
-
-  // ----------------------
-  // PAGE: CHECK-IN
-  // ----------------------
-  const searchInput = document.getElementById("searchInput");
-  const searchResultInfo = document.getElementById("searchResultInfo");
-  const searchTableBody = document.getElementById("searchTableBody");
-  const btnShowAll = document.getElementById("btnShowAll");
-  const focusedInfo = document.getElementById("focusedInfo");
-  const focusedTableNo = document.getElementById("focusedTableNo");
-
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const term = searchInput.value.trim();
-      renderSearchResults(term);
-    });
-  }
-
-  if (btnShowAll) {
-    btnShowAll.addEventListener("click", () => {
-      searchInput.value = "";
-      renderSearchResults("");
-    });
-  }
-
-  function renderSearchResults(term = "") {
-    if (!searchTableBody || !searchResultInfo) return;
-    const participants = loadParticipants();
-    searchTableBody.innerHTML = "";
-    term = (term || "").toLowerCase();
-
-    let filtered = participants;
-    if (term) {
-      filtered = participants.filter(p => {
-        return (
-          (p.name && p.name.toLowerCase().includes(term)) ||
-          (p.department && p.department.toLowerCase().includes(term)) ||
-          (p.staffId && String(p.staffId).toLowerCase().includes(term))
-        );
-      });
-      searchResultInfo.textContent = `${filtered.length} result(s) for "${term}".`;
-    } else {
-      filtered = participants.slice(0, 100);
-      searchResultInfo.textContent = `Showing first ${filtered.length} guests. Use search to filter.`;
-    }
-
-    if (filtered.length === 0) {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td colspan="5" class="tagline">No matching guests.</td>`;
-      searchTableBody.appendChild(tr);
-      return;
-    }
-
-    filtered.forEach(p => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${escapeHtml(p.name)}</td>
-        <td>${escapeHtml(p.department)}</td>
-        <td>${escapeHtml(String(p.tableNo || ""))}</td>
-        <td>${p.attended ? '<span class="pill success">Present</span>' : '<span class="pill">Not yet</span>'}</td>
-        <td>
-          <button class="btn-small" data-id="${p.id}">
-            ${p.attended ? "Update" : "Mark Present"}
-          </button>
-        </td>
-      `;
-      searchTableBody.appendChild(tr);
-    });
-
-    searchTableBody.querySelectorAll("button[data-id]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-id");
-        markPresent(id);
-      });
-    });
-  }
-
-  function markPresent(id) {
-    let participants = loadParticipants();
-    const idx = participants.findIndex(p => p.id === id);
-    if (idx === -1) return;
-
-    participants[idx].attended = true;
-    participants[idx].checkInTime = new Date().toISOString();
-    saveParticipants(participants);
-
-    const p = participants[idx];
-    if (focusedInfo) {
-      focusedInfo.textContent = `${p.name} (${p.department}) is marked PRESENT.`;
-    }
-    if (focusedTableNo) {
-      focusedTableNo.textContent = `TABLE ${p.tableNo || "-"}`;
-      focusedTableNo.style.display = "block";
-    }
-
-    renderParticipantTable();
-    renderDashboard();
-    renderSearchResults(searchInput ? searchInput.value.trim() : "");
-    showToast("Attendance updated.");
-  }
-
-  // ----------------------
-  // UTIL & INITIAL
-  // ----------------------
-  function escapeHtml(str) {
-    return String(str || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
-  // Initial load: dashboard as landing page
-  showPage("dashboardPage");
-  renderDashboard();
-  renderParticipantTable();
-  renderSearchResults();
-</script>
+  </script>
 </body>
 </html>
+
