@@ -1,209 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Akademia PSA 2025 Invitation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Invitation Landing</title>
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at top, #2b235a, #0a0618 78%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    color: #f7e6c4;
+  }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #3b2b69, #05020a 55%, #000);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #f9e4b7;
-      overflow: hidden;
-    }
+  .envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .hint {
-      position: absolute;
-      bottom: 40px;
-      text-align: center;
-      width: 100%;
-      font-size: 0.95rem;
-      opacity: 0.85;
-    }
+  .envelope {
+    width: 320px;
+    height: 200px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f1d7a6, #b88632);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.7);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
 
-    .envelope-wrapper {
-      perspective: 1600px;
-      cursor: pointer;
-    }
+  .envelope:hover {
+    transform: translateY(-6px) scale(1.02);
+  }
 
-    .envelope {
-      width: 340px;
-      height: 220px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.9s ease;
-    }
+  .seal {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffdca8, #b57818);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #422000;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5),
+                inset 0 0 8px rgba(255,255,255,0.4);
+  }
 
-    .envelope:hover {
-      transform: translateY(-6px) scale(1.02);
-    }
+  /* Instruction text */
+  .instruction {
+    margin-top: 22px;
+    font-size: 0.95rem;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
 
-    .envelope-base {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #5f3a16, #b58b39);
-      border-radius: 14px;
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.8),
-        0 0 0 2px rgba(255, 215, 150, 0.6);
-      overflow: hidden;
-    }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
-    .card {
-      position: absolute;
-      inset: 14px;
-      border-radius: 10px;
-      background: #120b2a;
-      background-image: url("banner.jpg"); /* <-- your banner file here */
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
-      transform: translateY(35%);
-      transition: transform 0.9s ease 0.2s;
-    }
-
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.05));
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .card-title {
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-shadow: 0 0 6px rgba(0,0,0,0.7);
-    }
-
-    .card-subtitle {
-      font-size: 0.8rem;
-      margin-top: 4px;
-      opacity: 0.9;
-    }
-
-    .card-date {
-      margin-top: 6px;
-      font-size: 0.75rem;
-      opacity: 0.85;
-    }
-
-    .flap {
-      position: absolute;
-      inset: 0;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #f9e0b5, #b47c2b);
-      transform-origin: top;
-      transform-style: preserve-3d;
-      transition: transform 0.9s ease;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
-    }
-
-    .flap::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(145deg,
-        rgba(255,255,255,0.32),
-        rgba(255,255,255,0.05));
-      mix-blend-mode: screen;
-    }
-
-    .seal {
-      position: absolute;
-      width: 72px;
-      height: 72px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #ffe9c0, #b67518);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -30%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #3c2007;
-      box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.7),
-        0 0 0 4px rgba(84,36,4,0.8);
-      text-align: center;
-    }
-
-    .envelope.open .flap {
-      transform: rotateX(-155deg);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    }
-
-    .envelope.open .card {
-      transform: translateY(-8%);
-    }
-
-    @media (max-width: 480px) {
-      .envelope { width: 300px; height: 200px; }
-      .seal { width: 64px; height: 64px; font-size: 0.55rem; }
-      .hint { font-size: 0.85rem; padding: 0 10px; }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="envelope-wrapper" id="invitation">
-    <div class="envelope">
-      <div class="envelope-base">
-        <div class="card">
-          <div class="card-overlay">
-            <div class="card-title">MAJLIS APRESIASI ANUGERAH AKADEMIA PSA 2025</div>
-            <div class="card-subtitle">Around the World · SACC Shah Alam</div>
-            <div class="card-date">21 November 2025 · Jumaat</div>
-          </div>
-        </div>
-      </div>
-      <div class="flap">
-        <div class="seal">OPEN<br>INVITE</div>
-      </div>
-    </div>
+
+<div class="envelope-container">
+
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="seal">OPEN<br>INVITE</div>
   </div>
 
-  <div class="hint">Klik sampul emas untuk ke laman rasmi Akademia 2025</div>
+  <div class="instruction">
+    Klik sampul emas untuk ke laman rasmi Akademia 2025
+  </div>
 
-  <script>
-    const targetUrl = "https://polipsa.my.canva.site/akademia2025";
-    const invitation = document.getElementById("invitation");
-    const envelope = invitation.querySelector(".envelope");
-    let opened = false;
+</div>
 
-    invitation.addEventListener("click", () => {
-      if (opened) return;
-      opened = true;
+<script>
+  function openEnvelope() {
+    // Your open animation or redirect here
+    console.log("Envelope clicked");
+  }
+</script>
 
-      envelope.classList.add("open");
-
-      // After animation, redirect whole window/tab to Canva
-      setTimeout(() => {
-        // If this page is inside another frame (e.g. Apps Script), break out:
-        try {
-          window.top.location.href = targetUrl;
-        } catch (e) {
-          // Fallbacks
-          window.location.href = targetUrl;
-        }
-      }, 1400);
-    });
-  </script>
 </body>
 </html>
