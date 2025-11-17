@@ -2,41 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Majlis Apresiasi Akademia PSA 2025 – Invitation</title>
+  <title>Akademia PSA 2025 Invitation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #3b2b69, #05020a 55%, #000000);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      background: radial-gradient(circle at top, #3b2b69, #05020a 55%, #000);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #f9e4b7;
       overflow: hidden;
-    }
-
-    .lights {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      pointer-events: none;
-      font-size: 14px;
-      letter-spacing: 0.7em;
-    }
-
-    .lights span {
-      text-shadow: 0 0 8px rgba(255, 230, 170, 0.9);
     }
 
     .hint {
@@ -45,7 +25,7 @@
       text-align: center;
       width: 100%;
       font-size: 0.95rem;
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
     .envelope-wrapper {
@@ -65,7 +45,6 @@
       transform: translateY(-6px) scale(1.02);
     }
 
-    /* Envelope base */
     .envelope-base {
       position: absolute;
       inset: 0;
@@ -77,12 +56,12 @@
       overflow: hidden;
     }
 
-    /* The “card” inside the envelope (your event artwork) */
     .card {
       position: absolute;
       inset: 14px;
       border-radius: 10px;
       background: #120b2a;
+      background-image: url("banner.jpg"); /* <-- your banner file here */
       background-size: cover;
       background-position: center;
       box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
@@ -90,20 +69,10 @@
       transition: transform 0.9s ease 0.2s;
     }
 
-    /* OPTIONAL: put your banner as background image */
-    /* Replace 'banner.jpg' with your real image path if you want */
-    .card {
-      background-image: url("banner.jpg"); /* or remove this line if not using */
-    }
-
     .card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.1)
-      );
+      background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.05));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -117,7 +86,7 @@
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 0 6px rgba(0,0,0,0.7);
     }
 
     .card-subtitle {
@@ -132,7 +101,6 @@
       opacity: 0.85;
     }
 
-    /* Flap */
     .flap {
       position: absolute;
       inset: 0;
@@ -148,11 +116,9 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        145deg,
-        rgba(255, 255, 255, 0.32),
-        rgba(255, 255, 255, 0.05)
-      );
+      background: linear-gradient(145deg,
+        rgba(255,255,255,0.32),
+        rgba(255,255,255,0.05));
       mix-blend-mode: screen;
     }
 
@@ -175,81 +141,50 @@
       color: #3c2007;
       box-shadow:
         0 8px 18px rgba(0, 0, 0, 0.7),
-        0 0 0 4px rgba(84, 36, 4, 0.8);
+        0 0 0 4px rgba(84,36,4,0.8);
       text-align: center;
     }
 
-    /* Open state */
     .envelope.open .flap {
       transform: rotateX(-155deg);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
 
     .envelope.open .card {
       transform: translateY(-8%);
     }
 
-    .envelope.open:hover {
-      transform: translateY(0) scale(1.02);
-    }
-
     @media (max-width: 480px) {
-      .envelope {
-        width: 300px;
-        height: 200px;
-      }
-
-      .seal {
-        width: 64px;
-        height: 64px;
-        font-size: 0.55rem;
-      }
-
-      .lights {
-        font-size: 11px;
-      }
-
-      .hint {
-        font-size: 0.85rem;
-        padding: 0 10px;
-      }
+      .envelope { width: 300px; height: 200px; }
+      .seal { width: 64px; height: 64px; font-size: 0.55rem; }
+      .hint { font-size: 0.85rem; padding: 0 10px; }
     }
   </style>
 </head>
 <body>
-  <div class="lights">
-    <span>● ● ● ● ● ● ● ● ● ● ● ● ● ●</span>
-  </div>
-
   <div class="envelope-wrapper" id="invitation">
     <div class="envelope">
       <div class="envelope-base">
         <div class="card">
           <div class="card-overlay">
-            <div class="card-title">
-              MAJLIS APRESIASI ANUGERAH AKADEMIA PSA 2025
-            </div>
-            <div class="card-subtitle">Around the World – SACC Shah Alam</div>
+            <div class="card-title">MAJLIS APRESIASI ANUGERAH AKADEMIA PSA 2025</div>
+            <div class="card-subtitle">Around the World · SACC Shah Alam</div>
             <div class="card-date">21 November 2025 · Jumaat</div>
           </div>
         </div>
       </div>
       <div class="flap">
-        <div class="seal">
-          OPEN<br />
-          INVITE
-        </div>
+        <div class="seal">OPEN<br>INVITE</div>
       </div>
     </div>
   </div>
 
-  <div class="hint">Click the golden envelope to open your invitation</div>
+  <div class="hint">Klik sampul emas untuk ke laman rasmi Akademia 2025</div>
 
   <script>
     const targetUrl = "https://polipsa.my.canva.site/akademia2025";
     const invitation = document.getElementById("invitation");
     const envelope = invitation.querySelector(".envelope");
-
     let opened = false;
 
     invitation.addEventListener("click", () => {
@@ -258,12 +193,17 @@
 
       envelope.classList.add("open");
 
-      // wait for animation, then go to event webpage
+      // After animation, redirect whole window/tab to Canva
       setTimeout(() => {
-        window.location.href = targetUrl;
-      }, 1400); // 1.4s
+        // If this page is inside another frame (e.g. Apps Script), break out:
+        try {
+          window.top.location.href = targetUrl;
+        } catch (e) {
+          // Fallbacks
+          window.location.href = targetUrl;
+        }
+      }, 1400);
     });
   </script>
 </body>
 </html>
-
